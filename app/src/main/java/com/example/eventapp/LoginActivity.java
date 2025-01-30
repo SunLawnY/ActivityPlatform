@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
@@ -101,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
             String username = account.getDisplayName();
             String idToken = account.getIdToken();  // 获取 ID token
             
-            Log.d(TAG, "Google登录成功: " + email);
+            Log.d(TAG, "Google login successful: " + email);
             
             // 检查用户是否已存在
             User existingUser = dbHelper.getUserByEmail(email);
@@ -118,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                     saveLoginStatus(username, userId, false);
                     startMainActivity();
                 } else {
-                    Toast.makeText(this, "创建用户失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Failed to create user", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 // Google登录用户统一设置为普通用户
@@ -126,8 +127,8 @@ public class LoginActivity extends AppCompatActivity {
                 startMainActivity();
             }
         } catch (ApiException e) {
-            Log.e(TAG, "Google登录失败: " + e.getStatusCode() + ", " + e.getMessage());
-            Toast.makeText(this, "Google登录失败: " + e.getStatusMessage(), Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Google login failed: " + e.getStatusCode() + ", " + GoogleSignInStatusCodes.getStatusCodeString(e.getStatusCode()));
+            Toast.makeText(this, "Google login failed: " + GoogleSignInStatusCodes.getStatusCodeString(e.getStatusCode()), Toast.LENGTH_SHORT).show();
         } finally {
             showLoading(false);
         }
@@ -153,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordInput.getText().toString().trim();
 
         if (username.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "请输入用户名和密码", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -165,7 +166,7 @@ public class LoginActivity extends AppCompatActivity {
                     saveLoginStatus(username, user.getId(), user.isStaff());
                     startMainActivity();
                 } else {
-                    Toast.makeText(this, "用户名或密码错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_SHORT).show();
                 }
                 showLoading(false);
             });
