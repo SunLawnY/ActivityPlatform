@@ -48,7 +48,7 @@ public class EventEditActivity extends AppCompatActivity {
         // 获取要编辑的活动ID
         long eventId = getIntent().getLongExtra("event_id", -1);
         if (eventId == -1) {
-            Toast.makeText(this, "活动ID无效", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid Event ID", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -78,7 +78,7 @@ public class EventEditActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("编辑活动");
+            getSupportActionBar().setTitle("Edit Event");
         }
     }
 
@@ -100,7 +100,7 @@ public class EventEditActivity extends AppCompatActivity {
                     startTime.setTimeInMillis(currentEvent.getStartTime());
                     endTime.setTimeInMillis(currentEvent.getEndTime());
                 } else {
-                    Toast.makeText(this, "加载活动数据失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Failed to load event data", Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 showLoading(false);
@@ -159,17 +159,17 @@ public class EventEditActivity extends AppCompatActivity {
                 boolean success = dbHelper.updateEvent(currentEvent);
                 runOnUiThread(() -> {
                     if (success) {
-                        Toast.makeText(this, "活动更新成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Event updated successfully", Toast.LENGTH_SHORT).show();
                         setResult(RESULT_OK);
                         finish();
                     } else {
-                        Toast.makeText(this, "活动更新失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Event update failed", Toast.LENGTH_SHORT).show();
                     }
                     showLoading(false);
                 });
             } catch (ParseException e) {
                 runOnUiThread(() -> {
-                    Toast.makeText(this, "日期格式错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Invalid date format", Toast.LENGTH_SHORT).show();
                     showLoading(false);
                 });
             }
@@ -178,23 +178,27 @@ public class EventEditActivity extends AppCompatActivity {
 
     private boolean validateInput() {
         if (TextUtils.isEmpty(titleInput.getText())) {
-            titleInput.setError("请输入活动标题");
+            titleInput.setError("Please enter the event title");
+            return false;
+        }
+        if (TextUtils.isEmpty(descriptionInput.getText())) {
+            descriptionInput.setError("Please enter the event description");
             return false;
         }
         if (TextUtils.isEmpty(locationInput.getText())) {
-            locationInput.setError("请输入活动地点");
+            locationInput.setError("Please enter the event location");
             return false;
         }
         if (TextUtils.isEmpty(startTimeInput.getText())) {
-            startTimeInput.setError("请选择开始时间");
+            startTimeInput.setError("Please select a start time");
             return false;
         }
         if (TextUtils.isEmpty(endTimeInput.getText())) {
-            endTimeInput.setError("请选择结束时间");
+            endTimeInput.setError("Please select an end time");
             return false;
         }
         if (TextUtils.isEmpty(maxParticipantsInput.getText())) {
-            maxParticipantsInput.setError("请输入最大参与人数");
+            maxParticipantsInput.setError("Please enter the maximum number of participants");
             return false;
         }
         
@@ -202,11 +206,21 @@ public class EventEditActivity extends AppCompatActivity {
             Date startDate = dateFormat.parse(startTimeInput.getText().toString());
             Date endDate = dateFormat.parse(endTimeInput.getText().toString());
             if (startDate != null && endDate != null && startDate.after(endDate)) {
-                startTimeInput.setError("开始时间不能晚于结束时间");
+                startTimeInput.setError("End time cannot be earlier than start time");
                 return false;
             }
         } catch (ParseException e) {
-            Toast.makeText(this, "日期格式错误", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid date format", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        try {
+            int maxParticipants = Integer.parseInt(maxParticipantsInput.getText().toString().trim());
+            if (maxParticipants <= 0) {
+                maxParticipantsInput.setError("Number of participants must be greater than 0");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            maxParticipantsInput.setError("Please enter a valid number");
             return false;
         }
 
