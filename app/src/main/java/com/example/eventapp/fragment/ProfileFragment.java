@@ -118,26 +118,26 @@ public class ProfileFragment extends Fragment {
         // 显示用户信息
         String username = prefs.getString("username", "");
         boolean isStaff = prefs.getBoolean("isStaff", false);
-        usernameText.setText("用户名：" + username);
-        userTypeText.setText("用户类型：" + (isStaff ? "工作人员" : "普通用户"));
+        usernameText.setText("Username：" + username);
+        userTypeText.setText("User Type：" + (isStaff ? "Staff" : "Member"));
 
         // 设置退出登录按钮
         logoutButton.setOnClickListener(v -> {
             new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("退出登录")
-                .setMessage("确定要退出登录吗？")
-                .setPositiveButton("确定", (dialog, which) -> {
-                    // 清除所有用户数据
-                    prefs.edit().clear().apply();
-                    
-                    // 跳转到登录界面
-                    Intent intent = new Intent(requireContext(), LoginActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    requireActivity().finish();
-                })
-                .setNegativeButton("取消", null)
-                .show();
+                    .setTitle("Log out")
+                    .setMessage("Are you sure you want to log out?")
+                    .setPositiveButton("Confirm", (dialog, which) -> {
+                        // Clear all user data
+                        prefs.edit().clear().apply();
+
+                        // Navigate to the login screen
+                        Intent intent = new Intent(requireContext(), LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        requireActivity().finish();
+                    })
+                    .setNegativeButton("Cancel", null)
+                    .show();
         });
     }
 
@@ -166,8 +166,8 @@ public class ProfileFragment extends Fragment {
 
     private void showImagePickerDialog() {
         new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("选择图片来源")
-                .setItems(new String[]{"从相册选择", "拍照"}, (dialog, which) -> {
+                .setTitle("Select Image Source")
+                .setItems(new String[]{"Choose from Gallery", "Take Photo"}, (dialog, which) -> {
                     if (which == 0) {
                         pickImageFromGallery();
                     } else {
@@ -189,7 +189,7 @@ public class ProfileFragment extends Fragment {
             try {
                 photoFile = createImageFile();
             } catch (IOException ex) {
-                Toast.makeText(requireContext(), "创建图片文件失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Failed to create image file", Toast.LENGTH_SHORT).show();
             }
 
             if (photoFile != null) {
@@ -251,7 +251,7 @@ public class ProfileFragment extends Fragment {
 
             cropImageLauncher.launch(intent);
         } catch (Exception e) {
-            Toast.makeText(requireContext(), "裁剪功能不可用，直接使用原图: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Cropping is unavailable, using the original image directly:" + e.getMessage(), Toast.LENGTH_SHORT).show();
             updateAvatar(sourceUri);
         }
     }
@@ -292,12 +292,12 @@ public class ProfileFragment extends Fragment {
             // 保存头像路径到SharedPreferences
             prefs.edit().putString("avatar_path", destFile.getAbsolutePath()).apply();
             
-            Toast.makeText(requireContext(), "头像更新成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Profile picture updated successfully", Toast.LENGTH_SHORT).show();
             
             // TODO: 上传头像到服务器
             uploadAvatarToServer(savedUri);
         } catch (IOException e) {
-            Toast.makeText(requireContext(), "保存头像失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Failed to save profile picture: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -330,7 +330,7 @@ public class ProfileFragment extends Fragment {
 
     private void uploadAvatarToServer(Uri imageUri) {
         // TODO: 实现头像上传到服务器的逻辑
-        Toast.makeText(requireContext(), "头像更新成功", Toast.LENGTH_SHORT).show();
+        Toast.makeText(requireContext(), "Profile picture updated successfully", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -347,7 +347,7 @@ public class ProfileFragment extends Fragment {
             if (allGranted) {
                 showImagePickerDialog();
             } else {
-                Toast.makeText(requireContext(), "需要相机和存储权限才能更换头像", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Camera and storage permissions are required to change the profile picture", Toast.LENGTH_SHORT).show();
             }
         }
     }
