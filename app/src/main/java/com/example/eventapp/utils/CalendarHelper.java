@@ -71,13 +71,13 @@ public class CalendarHelper {
             DateTime startDateTime = new DateTime(appEvent.getStartTime());
             EventDateTime start = new EventDateTime()
                     .setDateTime(startDateTime)
-                    .setTimeZone("Asia/Shanghai");
+                    .setTimeZone("Europe/London");
             googleEvent.setStart(start);
 
             DateTime endDateTime = new DateTime(appEvent.getEndTime());
             EventDateTime end = new EventDateTime()
                     .setDateTime(endDateTime)
-                    .setTimeZone("Asia/Shanghai");
+                    .setTimeZone("Europe/London");
             googleEvent.setEnd(end);
 
             Log.d(TAG, "Calendar event object created: " + googleEvent.getSummary());
