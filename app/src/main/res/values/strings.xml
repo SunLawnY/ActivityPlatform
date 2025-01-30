@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Activity Platform</string>
+    <string name="app_logo">App Logo</string>
+    <string name="default_web_client_id">712702602955-r0ro5952son4t2b7g26qogcjksl6vrr6.apps.googleusercontent.com</string>
+    <string name="event_full">Full</string>
+    <string name="event_not_started">Not Started</string>
+    <string name="event_ongoing">Ongoing</string>
+    <string name="event_ended">Ended</string>
+    <string name="organizer_label">Organizer: </string>
+    <string name="participants_label">Participants: %d/%d</string>
+    <string name="cancel_registration">Cancel Registration</string>
+    <string name="join_event">Join Event</string>
+</resources>
