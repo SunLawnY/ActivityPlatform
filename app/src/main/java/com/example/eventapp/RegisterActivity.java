@@ -73,73 +73,73 @@ public class RegisterActivity extends AppCompatActivity {
         String confirmPassword = confirmPasswordInput.getText().toString();
         boolean isStaff = staffSwitch.isChecked();
 
-        // 验证输入
+// Validate input
         if (TextUtils.isEmpty(username)) {
-            usernameInput.setError("请输入用户名");
+            usernameInput.setError("Please enter a username");
             usernameInput.requestFocus();
             return;
         }
 
         if (TextUtils.isEmpty(email)) {
-            emailInput.setError("请输入邮箱");
+            emailInput.setError("Please enter an email");
             emailInput.requestFocus();
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailInput.setError("请输入有效的邮箱地址");
+            emailInput.setError("Please enter a valid email address");
             emailInput.requestFocus();
             return;
         }
 
         if (TextUtils.isEmpty(password)) {
-            passwordInput.setError("请输入密码");
+            passwordInput.setError("Please enter a password");
             passwordInput.requestFocus();
             return;
         }
 
         if (password.length() < 6) {
-            passwordInput.setError("密码长度至少为6位");
+            passwordInput.setError("Password must be at least 6 characters long");
             passwordInput.requestFocus();
             return;
         }
 
         if (!password.equals(confirmPassword)) {
-            confirmPasswordInput.setError("两次输入的密码不一致");
+            confirmPasswordInput.setError("Passwords do not match");
             confirmPasswordInput.requestFocus();
             return;
         }
 
-        // 显示加载动画
+// Show loading animation
         showLoading(true);
 
-        // 检查用户名是否已存在
+// Check if username already exists
         if (dbHelper.getUser(username) != null) {
-            usernameInput.setError("用户名已存在");
+            usernameInput.setError("Username already exists");
             usernameInput.requestFocus();
             showLoading(false);
             return;
         }
 
-        // 检查邮箱是否已存在
+// Check if email is already registered
         if (dbHelper.getUserByEmail(email) != null) {
-            emailInput.setError("邮箱已被注册");
+            emailInput.setError("Email is already registered");
             emailInput.requestFocus();
             showLoading(false);
             return;
         }
 
-        // 创建新用户
+// Create new user
         User newUser = new User(username, password, email, isStaff);
         long userId = dbHelper.addUser(newUser);
 
         if (userId > 0) {
-            // 注册成功
-            Toast.makeText(this, "注册成功", Toast.LENGTH_SHORT).show();
+            // Registration successful
+            Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
             finish();
         } else {
-            // 注册失败
-            Toast.makeText(this, "注册失败，请重试", Toast.LENGTH_SHORT).show();
+            // Registration failed
+            Toast.makeText(this, "Registration failed, please try again", Toast.LENGTH_SHORT).show();
             showLoading(false);
         }
     }

@@ -28,41 +28,41 @@ public class CalendarHelper {
 
     public static void addEventToCalendar(Context context, com.example.eventapp.model.Event appEvent) {
         if (!(context instanceof Activity)) {
-            Log.e(TAG, "Context必须是Activity实例");
+            Log.e(TAG, "Context must be an instance of Activity");
             return;
         }
         Activity activity = (Activity) context;
 
         try {
-            // 获取当前登录的Google账号
+            // Get the currently signed-in Google account
             GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
             if (account == null) {
-                Log.e(TAG, "未登录Google账号");
+                Log.e(TAG, "No Google account signed in");
                 activity.runOnUiThread(() -> {
-                    Toast.makeText(activity, "请先登录Google账号", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Please sign in to your Google account first", Toast.LENGTH_SHORT).show();
                 });
                 return;
             }
-            Log.d(TAG, "成功获取Google账号: " + account.getEmail());
+            Log.d(TAG, "Successfully retrieved Google account: " + account.getEmail());
 
-            // 创建凭证
+            // Create credentials
             GoogleAccountCredential credential = GoogleAccountCredential.usingOAuth2(
                     context,
                     Collections.singleton(CalendarScopes.CALENDAR_EVENTS)
             );
             credential.setSelectedAccount(account.getAccount());
-            Log.d(TAG, "已设置OAuth凭证");
+            Log.d(TAG, "OAuth credential set");
 
-            // 创建Calendar服务
+            // Create Calendar service
             Calendar service = new Calendar.Builder(
                     new NetHttpTransport(),
                     GsonFactory.getDefaultInstance(),
                     credential)
                     .setApplicationName("EventApp")
                     .build();
-            Log.d(TAG, "已创建Calendar服务实例");
+            Log.d(TAG, "Calendar service instance created");
 
-            // 创建事件
+            // Create an event
             com.google.api.services.calendar.model.Event googleEvent = new com.google.api.services.calendar.model.Event()
                     .setSummary(appEvent.getTitle())
                     .setDescription(appEvent.getDescription())
@@ -80,35 +80,35 @@ public class CalendarHelper {
                     .setTimeZone("Asia/Shanghai");
             googleEvent.setEnd(end);
 
-            Log.d(TAG, "已创建日历事件对象: " + googleEvent.getSummary());
+            Log.d(TAG, "Calendar event object created: " + googleEvent.getSummary());
 
-            // 在后台线程中执行网络请求
+            // Execute network request in a background thread
             new Thread(() -> {
                 try {
-                    Log.d(TAG, "开始添加事件到Google日历...");
-                    // 插入事件
+                    Log.d(TAG, "Adding event to Google Calendar...");
+                    // Insert event
                     com.google.api.services.calendar.model.Event createdEvent = service.events().insert("primary", googleEvent).execute();
-                    Log.d(TAG, "事件已添加到Google日历: " + createdEvent.getHtmlLink());
+                    Log.d(TAG, "Event added to Google Calendar: " + createdEvent.getHtmlLink());
                     activity.runOnUiThread(() -> {
-                        Toast.makeText(activity, "事件已添加到Google日历", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, "Event added to Google Calendar", Toast.LENGTH_SHORT).show();
                     });
                 } catch (UserRecoverableAuthIOException e) {
-                    Log.d(TAG, "需要用户授权，启动授权流程");
+                    Log.d(TAG, "User authorization required, launching authorization flow");
                     activity.runOnUiThread(() -> {
                         activity.startActivityForResult(e.getIntent(), REQUEST_AUTHORIZATION);
                     });
                 } catch (Exception e) {
-                    Log.e(TAG, "添加事件到Google日历失败: " + e.getMessage(), e);
+                    Log.e(TAG, "Failed to add event to Google Calendar: " + e.getMessage(), e);
                     activity.runOnUiThread(() -> {
-                        Toast.makeText(activity, "添加事件失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, "Failed to add event: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     });
                 }
             }).start();
 
         } catch (Exception e) {
-            Log.e(TAG, "配置Google日历服务失败: " + e.getMessage(), e);
+            Log.e(TAG, "Failed to configure Google Calendar service: " + e.getMessage(), e);
             activity.runOnUiThread(() -> {
-                Toast.makeText(activity, "配置日历服务失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Failed to configure calendar service: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             });
         }
     }
