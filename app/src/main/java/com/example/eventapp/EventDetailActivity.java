@@ -69,7 +69,7 @@ public class EventDetailActivity extends AppCompatActivity {
         // 获取活动ID
         long eventId = getIntent().getLongExtra("event_id", -1);
         if (eventId == -1) {
-            Toast.makeText(this, "活动ID无效", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Invalid Activity ID", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -122,14 +122,14 @@ public class EventDetailActivity extends AppCompatActivity {
                         // 如果是工作人员，显示管理按钮
                         adminButtonsContainer.setVisibility(isStaff ? View.VISIBLE : View.GONE);
                     } else {
-                        Toast.makeText(this, "加载活动数据失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Failed to load event data", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     showLoading(false);
                 });
             } catch (Exception e) {
                 runOnUiThread(() -> {
-                    Toast.makeText(this, "加载数据时出错：" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Error occurred while loading data:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     showLoading(false);
                 });
             }
@@ -173,7 +173,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private void toggleRegistration() {
         if (event == null) {
-            Toast.makeText(this, "活动数据未加载，请稍后重试", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Event data not loaded, please try again later", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -199,15 +199,15 @@ public class EventDetailActivity extends AppCompatActivity {
                 runOnUiThread(() -> {
                     if (finalSuccess) {
                         updateUI(); // 更新整个UI，包括参与人数和按钮状态
-                        Toast.makeText(this, isRegistered ? "报名成功" : "已取消报名", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, isRegistered ? "Registration successful" : "Registration canceled", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(this, isRegistered ? "取消报名失败" : "报名失败，活动可能已满", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, isRegistered ? "Failed to cancel registration" : "Registration failed, the event may be full", Toast.LENGTH_SHORT).show();
                     }
                     showLoading(false);
                 });
             } catch (Exception e) {
                 runOnUiThread(() -> {
-                    Toast.makeText(this, "操作失败：" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Operation failed：" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     showLoading(false);
                 });
             }
@@ -216,7 +216,7 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private void addToCalendar() {
         if (event == null) {
-            Toast.makeText(this, "活动信息不可用", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Event information is unavailable", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -250,7 +250,7 @@ public class EventDetailActivity extends AppCompatActivity {
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 addToCalendar();
             } else {
-                Toast.makeText(this, "需要日历权限才能添加活动", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Calendar permission is required to add the event", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -272,25 +272,25 @@ public class EventDetailActivity extends AppCompatActivity {
 
     private void deleteEvent() {
         new androidx.appcompat.app.AlertDialog.Builder(this)
-            .setTitle("删除活动")
-            .setMessage("确定要删除这个活动吗？此操作不可恢复。")
-            .setPositiveButton("删除", (dialog, which) -> {
+            .setTitle("Delete Event")
+            .setMessage("Are you sure you want to delete this event? This action cannot be undone.")
+            .setPositiveButton("Delete", (dialog, which) -> {
                 showLoading(true);
                 new Thread(() -> {
                     boolean success = dbHelper.deleteEvent(event.getId());
                     runOnUiThread(() -> {
                         if (success) {
-                            Toast.makeText(this, "活动已删除", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Event deleted", Toast.LENGTH_SHORT).show();
                             setResult(RESULT_OK);
                             finish();
                         } else {
-                            Toast.makeText(this, "删除活动失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, "Failed to delete event", Toast.LENGTH_SHORT).show();
                         }
                         showLoading(false);
                     });
                 }).start();
             })
-            .setNegativeButton("取消", null)
+            .setNegativeButton("Cancel", null)
             .show();
     }
 

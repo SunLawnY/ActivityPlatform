@@ -154,61 +154,61 @@ public class CreateEventActivity extends AppCompatActivity {
         // 保存到数据库
         long eventId = dbHelper.insertEvent(event);
         if (eventId != -1) {
-            Toast.makeText(this, "活动创建成功", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Event created successfully", Toast.LENGTH_SHORT).show();
             setResult(RESULT_OK);
             finish();
         } else {
-            Toast.makeText(this, "创建失败，请重试", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Creation failed, please try again", Toast.LENGTH_SHORT).show();
         }
     }
 
     private boolean validateInput() {
         if (TextUtils.isEmpty(titleInput.getText())) {
-            titleInput.setError("请输入活动标题");
+            titleInput.setError("Please enter the event title");
             return false;
         }
 
         if (TextUtils.isEmpty(descriptionInput.getText())) {
-            descriptionInput.setError("请输入活动描述");
+            descriptionInput.setError("Please enter the event description");
             return false;
         }
 
         if (TextUtils.isEmpty(locationInput.getText())) {
-            locationInput.setError("请输入活动地点");
+            locationInput.setError("Please enter the event location");
             return false;
         }
 
         if (TextUtils.isEmpty(startTimeInput.getText())) {
-            startTimeInput.setError("请选择开始时间");
+            startTimeInput.setError("Please select a start time");
             return false;
         }
 
         if (TextUtils.isEmpty(endTimeInput.getText())) {
-            endTimeInput.setError("请选择结束时间");
+            endTimeInput.setError("Please select an end time");
             return false;
         }
 
         if (endTime.before(startTime)) {
-            endTimeInput.setError("结束时间不能早于开始时间");
+            endTimeInput.setError("End time cannot be earlier than start time");
             return false;
         }
 
         if (TextUtils.isEmpty(maxParticipantsInput.getText())) {
-            maxParticipantsInput.setError("请输入最大参与人数");
+            maxParticipantsInput.setError("Please enter the maximum number of participants");
             return false;
         }
 
         try {
             int maxParticipants = Integer.parseInt(maxParticipantsInput.getText().toString().trim());
             if (maxParticipants <= 0) {
-                maxParticipantsInput.setError("参与人数必须大于0");
+                maxParticipantsInput.setError("Number of participants must be greater than 0");
                 return false;
             }
         } catch (NumberFormatException e) {
-            maxParticipantsInput.setError("请输入有效的数字");
+            maxParticipantsInput.setError("Please enter a valid number");
             return false;
         }
 
         return true;
     }
-} 
+}
