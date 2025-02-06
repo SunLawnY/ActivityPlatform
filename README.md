@@ -1,6 +1,6 @@
 # EventApp - Event Management Application
 
-##Walkthrought Video
+## Walkthrought Video
 https://www.youtube.com/watch?v=JL0cJN1iK9U
 
 ## Overview
