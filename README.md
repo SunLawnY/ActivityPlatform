@@ -1,7 +1,7 @@
 # EventApp - Event Management Application
 
 ## Walkthrought Video
-https://www.youtube.com/watch?v=JL0cJN1iK9U
+[Watch on YouTube](https://www.youtube.com/watch?v=JL0cJN1iK9U)
 
 ## Overview
 EventApp is an Android application designed to help users manage and participate in various events. The app allows users to create, view, and register for events, as well as manage their profiles. It includes features such as event creation, event registration, event filtering, and integration with Google Calendar.
@@ -13,9 +13,11 @@ EventApp is an Android application designed to help users manage and participate
 - **Event Registration**: Users can register for events and cancel their registration.
 - **Google Calendar Integration**: Users can add events to their Google Calendar.
 - **Profile Management**: Users can update their profile picture and view their registered events.
+- **Custom Theme and Colors**: Updated the app’s theme with a new color palette, applying a warm and modern beige, caramel, and brown color scheme across all UI elements.
 
 ## Technologies Used
 - **Android SDK**: The app is built using the Android SDK and follows Material Design guidelines.
+- **Material Design Components**: Implemented Material Components for a modern UI.
 - **SQLite Database**: Local data storage for events, users, and registrations.
 - **Google Sign-In**: Integration with Google Sign-In for authentication.
 - **Google Calendar API**: Integration with Google Calendar to add events.
