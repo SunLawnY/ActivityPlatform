@@ -1,0 +1,23 @@
+{
+  "project_info": {
+    "project_id": "your-project-id",
+    "storage_bucket": "your-bucket-name"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "your-app-id",
+        "android_client_info": {
+          "package_name": "com.example.yourapp"
+        }
+      },
+      "api_key": [
+        {
+          "current_key": "YOUR_API_KEY"
+        }
+      ]
+    }
+  ]
+}
+
+
