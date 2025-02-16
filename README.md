@@ -28,6 +28,19 @@ EventApp is an Android application designed to help users manage and participate
 ```sh
 git clone https://github.com/SunLawnY/ActivityPlatform.git
 ```
+
+## Setting up Google Services
+This project requires a `google-services.json` file for Firebase configuration.
+
+### Steps to generate `google-services.json`:
+1. Go to [Firebase Console](https://console.firebase.google.com/).
+2. Select the project and go to "Project Settings".
+3. In the "General" tab, scroll down to "Your apps".
+4. Click on the Android app and download the `google-services.json` file.
+5. Place it in the `app/` directory.
+
+⚠️ **For security reasons, this file is not included in the repository.**
+
 ### Open in Android Studio:
 1. Open Android Studio and select **"Open an existing Android Studio project."**
 2. Navigate to the cloned repository and select the project.
