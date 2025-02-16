@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 主题颜色 -->
-    <color name="primary">#2196F3</color>
-    <color name="primary_dark">#1976D2</color>
-    <color name="primary_light">#BBDEFB</color>
-    <color name="accent">#FF4081</color>
+    <color name="primary">#F5E1C0</color> <!-- 米黃色 -->
+    <color name="primary_dark">#C9A66B</color> <!-- 深金色 -->
+    <color name="primary_light">#FFF3E0</color> <!-- 更淺米黃 -->
+
+    <color name="accent">#A67C52</color> <!-- 焦糖咖啡色 -->
     
     <!-- 文字颜色 -->
-    <color name="text_primary">#212121</color>
-    <color name="text_secondary">#757575</color>
+    <color name="text_primary">#5D4037</color> <!-- 深棕色 -->
+    <color name="text_secondary">#8D6E63</color> <!-- 淺棕 -->
     <color name="text_tertiary">#9E9E9E</color>
     
     <!-- 背景颜色 -->
-    <color name="background">#FAFAFA</color>
-    <color name="surface">#FFFFFF</color>
-    <color name="divider">#E0E0E0</color>
+    <color name="background">#FAF3E0</color> <!-- 柔和米色 -->
+    <color name="surface">#FFFFFF</color> <!-- 純白卡片背景 -->
+    <color name="divider">#D7CCC8</color> <!-- 淺棕分隔線 -->
     
     <!-- 状态颜色 -->
     <color name="success">#4CAF50</color>
@@ -30,11 +31,13 @@
     <color name="white">#FFFFFFFF</color>
     
     <!-- Material Design 颜色 -->
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="beige_200">#FAE0C3</color>  <!-- 淡米色 -->
+    <color name="beige_500">#F5E1C0</color>  <!-- 米黃色 -->
+    <color name="beige_700">#C9A66B</color>  <!-- 深金色 -->
+
+    <color name="caramel_200">#D7B899</color> <!-- 淡焦糖色 -->
+    <color name="caramel_500">#A67C52</color> <!-- 焦糖咖啡 -->
+    <color name="caramel_700">#7B5A3D</color> <!-- 深咖啡色 -->
     
     <!-- 启动器图标背景 -->
     <color name="ic_launcher_background">@color/primary</color>
