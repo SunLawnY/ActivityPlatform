@@ -1,5 +1,20 @@
 # EventApp - Event Management Application
 
+## 📌 Table of Contents
+- [Walkthrough Video](#walkthrough-video)
+- [Overview](#overview)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Setting up Google Services](#setting-up-google-services)
+- [Usage](#usage)
+- [Custom Theme & Color Scheme](#custom-theme--color-scheme)
+- [Code Structure](#code-structure)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Contact](#contact)
+
 ## Walkthrought Video
 [Watch on YouTube](https://www.youtube.com/watch?v=JL0cJN1iK9U)
 
